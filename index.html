@@ -9,24 +9,19 @@
 
 body {
 margin:0;
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
 background:#efeae4;
 font-family: 'Georgia', serif;
-overflow:hidden;
 }
 
 /* CONTAINER */
 .container {
-position:relative;
 text-align:center;
 }
 
 /* CAPA */
 .capa {
 width:320px;
+margin-top:40px;
 cursor:pointer;
 transition:0.5s;
 border-radius:15px;
@@ -37,27 +32,25 @@ box-shadow:0 10px 25px rgba(0,0,0,0.2);
 transform: scale(1.05);
 }
 
-/* FUNDO CONVITE */
+/* CONVITE IMAGEM */
 .convite {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100vh;
-background-image: url('imagem2.png');
-background-size: cover;
-background-position: center;
-background-repeat: no-repeat;
-z-index: 1;
-display: none;
+width:100%;
+max-width:500px;
+margin:auto;
+display:none;
 animation: fadeZoom 1.2s ease;
 }
 
-/* ANIMAÇÃO FUNDO */
+.convite img{
+width:100%;
+display:block;
+}
+
+/* ANIMAÇÃO */
 @keyframes fadeZoom {
 from{
 opacity:0;
-transform:scale(1.1);
+transform:scale(1.05);
 }
 to{
 opacity:1;
@@ -65,16 +58,13 @@ transform:scale(1);
 }
 }
 
-/* CAIXA PREMIUM */
+/* CAIXA BOTÕES */
 .botoes {
-position: relative;
-z-index: 2;
-margin-top: 60vh;
+display:none;
 padding:20px;
+margin:20px auto 40px auto;
 width:90%;
 max-width:340px;
-margin-left:auto;
-margin-right:auto;
 text-align:center;
 
 background: rgba(0,0,0,0.35);
@@ -85,7 +75,6 @@ box-shadow:0 10px 30px rgba(0,0,0,0.3);
 animation: subir 1s ease;
 }
 
-/* ANIMAÇÃO SUBIR */
 @keyframes subir {
 from{
 opacity:0;
@@ -94,18 +83,6 @@ transform:translateY(40px);
 to{
 opacity:1;
 transform:translateY(0);
-}
-}
-
-/* RESPONSIVO */
-@media (max-width: 480px){
-.botoes{
-margin-top: 58vh;
-}
-
-button{
-width:100%;
-margin:5px 0;
 }
 }
 
@@ -119,11 +96,11 @@ font-size:14px;
 font-weight:bold;
 transition:0.3s;
 box-shadow:0 4px 10px rgba(0,0,0,0.2);
+width:100%;
 }
 
 button:hover{
 transform:translateY(-2px);
-box-shadow:0 6px 15px rgba(0,0,0,0.3);
 }
 
 .sim{
@@ -178,9 +155,11 @@ to{transform:translateY(110vh);}
 
 <img src="imagem1.jpeg" class="capa" onclick="abrirConvite()">
 
-<div class="convite" id="convite"></div>
+<div class="convite" id="convite">
+<img src="imagem2.png">
+</div>
 
-<div class="botoes" id="botoes" style="display:none;">
+<div class="botoes" id="botoes">
 
 <p><b style="color:white;">Você aceita celebrar conosco?</b></p>
 
@@ -188,7 +167,7 @@ to{transform:translateY(110vh);}
 <button class="nao" onclick="resposta('nao')">NÃO 🧡</button>
 <button class="talvez" onclick="resposta('talvez')">TALVEZ 🩶</button>
 
-<br><br>
+<br>
 
 <button class="maps" onclick="abrirMapa()">📍 Ver Local</button>
 <button class="whats" onclick="whats()">💬 Confirmar no WhatsApp</button>
@@ -209,14 +188,9 @@ let escolha = "";
 
 function abrirConvite(){
 document.querySelector(".capa").style.display="none";
-
-let convite = document.getElementById("convite");
-convite.style.display="block";
-
+document.getElementById("convite").style.display="block";
 document.getElementById("botoes").style.display="block";
-
 document.getElementById("musica").play().catch(()=>{});
-
 coracoes();
 }
 
