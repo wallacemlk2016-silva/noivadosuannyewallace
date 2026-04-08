@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Convite Wallace & Suanny</title>
+
+<style>
+body {
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#efeae4;
+font-family: 'Georgia', serif;
+overflow:hidden;
+}
+
+/* CONTAINER */
+.container {
+position:relative;
+text-align:center;
+}
+
+/* IMAGEM CAPA */
+.capa {
+width:320px;
+cursor:pointer;
+transition:0.5s;
+border-radius:15px;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+.capa:hover {
+transform: scale(1.05);
+}
+
+/* CONVITE ABERTO */
+.convite {
+position:absolute;
+top:0;
+left:0;
+width:320px;
+display:none;
+border-radius:20px;
+box-shadow:0 20px 40px rgba(0,0,0,0.3);
+animation:abrir 1.2s ease forwards;
+}
+
+/* ANIMAÇÃO */
+@keyframes abrir {
+0% {
+opacity:0;
+transform:scale(0.7) rotateY(90deg);
+}
+100% {
+opacity:1;
+transform:scale(1) rotateY(0deg);
+}
+}
+
+/* BOTÕES */
+.botoes {
+margin-top:15px;
+display:none;
+animation:fadeIn 1.5s;
+}
+
+@keyframes fadeIn {
+from{opacity:0;}
+to{opacity:1;}
+}
+
+button {
+margin:6px;
+padding:10px 16px;
+border:none;
+border-radius:12px;
+cursor:pointer;
+font-size:14px;
+}
+
+.sim{background:#ff4da6;color:white;}
+.nao{background:#ff8c42;color:white;}
+.talvez{background:#999;color:white;}
+.maps{background:#333;color:white;}
+.whats{background:#25D366;color:white;}
+
+.msg {
+margin-top:10px;
+font-size:14px;
+}
+
+/* CORAÇÕES */
+.heart {
+position:fixed;
+top:-10px;
+font-size:20px;
+animation:fall linear forwards;
+}
+
+@keyframes fall {
+to{transform:translateY(110vh);}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- IMAGEM 1 (CAPA) -->
+<img src="imagem1.jpg" class="capa" onclick="abrirConvite()">
+
+<!-- IMAGEM 2 (CONVITE) -->
+<img src="imagem2.jpg" class="convite" id="convite">
+
+<div class="botoes" id="botoes">
+
+<p><b>Você aceita celebrar conosco?</b></p>
+
+<button class="sim" onclick="resposta('sim')">SIM 💖</button>
+<button class="nao" onclick="resposta('nao')">NÃO 🧡</button>
+<button class="talvez" onclick="resposta('talvez')">TALVEZ 🩶</button>
+
+<br><br>
+
+<button class="maps" onclick="abrirMapa()">📍 Ver Local</button>
+<button class="whats" onclick="whats()">💬 Confirmar no WhatsApp</button>
+
+<p class="msg" id="msg"></p>
+
+</div>
+
+</div>
+
+<!-- MUSICA -->
+<audio id="musica" loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+</audio>
+
+<script>
+
+let escolha = "";
+
+function abrirConvite(){
+document.querySelector(".capa").style.display="none";
+
+let convite = document.getElementById("convite");
+convite.style.display="block";
+
+document.getElementById("botoes").style.display="block";
+
+document.getElementById("musica").play().catch(()=>{});
+
+coracoes();
+}
+
+function coracoes(){
+for(let i=0;i<50;i++){
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="💖";
+h.style.left=Math.random()*100+"vw";
+h.style.animationDuration=(2+Math.random()*3)+"s";
+document.body.appendChild(h);
+}
+}
+
+function resposta(op){
+let msg=document.getElementById("msg");
+escolha = op;
+
+if(op==="sim"){
+msg.innerHTML="💖 Perfeito! Estamos muito felizes!";
+}
+if(op==="nao"){
+msg.innerHTML="🧡 Vamos sentir sua falta!";
+}
+if(op==="talvez"){
+msg.innerHTML="🩶 Esperamos te ver lá!";
+}
+}
+
+function abrirMapa(){
+window.open("https://www.google.com/maps/search/?api=1&query=Restaurante+Skillus+Classic+Recife");
+}
+
+function whats(){
+
+if(escolha === ""){
+alert("Escolha uma opção primeiro 😊");
+return;
+}
+
+let texto = "";
+
+if(escolha === "sim"){
+texto = "Oi! Confirmo presença no noivado de Wallace & Suanny 💍💖";
+}
+if(escolha === "nao"){
+texto = "Oi! Não poderei ir ao noivado de Wallace & Suanny 🧡";
+}
+if(escolha === "talvez"){
+texto = "Oi! Talvez eu vá ao noivado de Wallace & Suanny 🩶";
+}
+
+window.open("https://wa.me/?text=" + encodeURIComponent(texto));
+}
+
+</script>
+
+</body>
+</html>
