@@ -16,20 +16,24 @@ font-family: 'Georgia', serif;
 /* CONTAINER */
 .container {
 text-align:center;
+padding:20px 10px;
 }
 
-/* CAPA */
+/* CAPA AJUSTADA */
 .capa {
-width:320px;
-margin-top:40px;
+width:92%;
+max-width:420px;
+height:auto;
+display:block;
+margin:40px auto;
 cursor:pointer;
 transition:0.5s;
-border-radius:15px;
-box-shadow:0 10px 25px rgba(0,0,0,0.2);
+border-radius:18px;
+box-shadow:0 12px 30px rgba(0,0,0,0.25);
 }
 
 .capa:hover {
-transform: scale(1.05);
+transform: scale(1.02);
 }
 
 /* CONVITE IMAGEM */
@@ -87,12 +91,12 @@ transform:translateY(0);
 }
 
 button {
-margin:6px;
-padding:12px 16px;
+margin:6px 0;
+padding:13px 16px;
 border:none;
 border-radius:12px;
 cursor:pointer;
-font-size:14px;
+font-size:15px;
 font-weight:bold;
 transition:0.3s;
 box-shadow:0 4px 10px rgba(0,0,0,0.2);
@@ -166,8 +170,6 @@ to{transform:translateY(110vh);}
 <button class="sim" onclick="resposta('sim')">SIM 💖</button>
 <button class="nao" onclick="resposta('nao')">NÃO 🧡</button>
 <button class="talvez" onclick="resposta('talvez')">TALVEZ 🩶</button>
-
-<br>
 
 <button class="maps" onclick="abrirMapa()">📍 Ver Local</button>
 <button class="whats" onclick="whats()">💬 Confirmar no WhatsApp</button>
