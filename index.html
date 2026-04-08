@@ -38,16 +38,18 @@ transform: scale(1.05);
 
 /* CONVITE ABERTO */
 .convite {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* deixa a imagem ocupar a tela toda */
-    z-index: 1; /* fica no fundo */
-    display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100vh;
+background-image: url('imagem2.png');
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+z-index: 1;
+display: none;
 }
-
 /* ANIMAÇÃO */
 @keyframes abrir {
 0% {
@@ -62,9 +64,14 @@ transform:scale(1) rotateY(0deg);
 
 /* BOTÕES */
 .botoes {
-    position: relative;
-    z-index: 2; /* fica acima da imagem */
-    text-align: center;
+position: absolute;
+bottom: 40px;
+left: 50%;
+transform: translateX(-50%);
+z-index: 2;
+text-align: center;
+width: 90%;
+max-width: 350px;
 }
 
 @keyframes fadeIn {
@@ -115,7 +122,7 @@ to{transform:translateY(110vh);}
 <img src="imagem1.jpeg" class="capa" onclick="abrirConvite()">
 
 <!-- IMAGEM 2 (CONVITE) -->
-<img src="imagem2.png" class="convite" id="convite">
+<div class="convite" id="convite"></div>
 
 <div class="botoes" id="botoes">
 
