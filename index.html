@@ -9,133 +9,131 @@
 
 body {
 margin:0;
-background:#efeae4;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#efeae4,#e4d7cf);
 font-family: 'Georgia', serif;
+overflow:hidden;
 }
 
 /* CONTAINER */
 .container {
 text-align:center;
-padding:20px 10px;
+animation: fadeIn 1.5s ease;
 }
 
-/* CAPA AJUSTADA */
+/* IMAGEM PRINCIPAL */
 .capa {
-width:92%;
-max-width:420px;
-height:auto;
-display:block;
-margin:40px auto;
+width:85%;
+max-width:360px;
+border-radius:20px;
 cursor:pointer;
-transition:0.5s;
-border-radius:18px;
-box-shadow:0 12px 30px rgba(0,0,0,0.25);
+transition:0.4s;
+box-shadow:0 15px 40px rgba(0,0,0,0.3);
+animation: brilho 3s infinite alternate;
 }
 
 .capa:hover {
-transform: scale(1.02);
+transform:scale(1.05);
 }
 
-/* CONVITE IMAGEM */
+/* BRILHO SUAVE */
+@keyframes brilho {
+from { box-shadow:0 15px 30px rgba(0,0,0,0.3); }
+to { box-shadow:0 20px 50px rgba(255,182,193,0.4); }
+}
+
+/* TEXTO */
+.texto-convite {
+margin-top:20px;
+font-size:17px;
+color:#4a2f28;
+line-height:1.5;
+padding:0 25px;
+animation: subirTexto 1.5s ease;
+}
+
+.texto-convite b {
+font-size:18px;
+color:#8b5e57;
+}
+
+/* MOBILE */
+@media (max-width:480px){
+.capa{
+width:92%;
+max-width:420px;
+}
+.texto-convite{
+font-size:18px;
+}
+}
+
+/* ANIMAÇÕES */
+@keyframes fadeIn {
+from{opacity:0;}
+to{opacity:1;}
+}
+
+@keyframes subirTexto {
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+/* CONVITE */
 .convite {
-width:100%;
-max-width:500px;
-margin:auto;
 display:none;
-animation: fadeZoom 1.2s ease;
+max-width:500px;
+animation: zoom 1.2s ease;
 }
 
 .convite img{
 width:100%;
-display:block;
+border-radius:12px;
 }
 
-/* ANIMAÇÃO */
-@keyframes fadeZoom {
-from{
-opacity:0;
-transform:scale(1.05);
-}
-to{
-opacity:1;
-transform:scale(1);
-}
+@keyframes zoom {
+from{opacity:0; transform:scale(1.1);}
+to{opacity:1; transform:scale(1);}
 }
 
-/* CAIXA BOTÕES */
+/* BOTÕES */
 .botoes {
 display:none;
+margin-top:20px;
 padding:20px;
-margin:20px auto 40px auto;
-width:90%;
-max-width:340px;
-text-align:center;
-
-background: rgba(0,0,0,0.35);
-backdrop-filter: blur(8px);
 border-radius:20px;
-box-shadow:0 10px 30px rgba(0,0,0,0.3);
-
-animation: subir 1s ease;
-}
-
-@keyframes subir {
-from{
-opacity:0;
-transform:translateY(40px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
+background: rgba(0,0,0,0.4);
+backdrop-filter: blur(10px);
 }
 
 button {
+width:100%;
 margin:6px 0;
-padding:13px 16px;
+padding:14px;
 border:none;
 border-radius:12px;
-cursor:pointer;
 font-size:15px;
 font-weight:bold;
+cursor:pointer;
 transition:0.3s;
-box-shadow:0 4px 10px rgba(0,0,0,0.2);
-width:100%;
 }
 
 button:hover{
 transform:translateY(-2px);
 }
 
-.sim{
-background:linear-gradient(45deg,#ff4da6,#ff80bf);
-color:white;
-}
+.sim{background:#ff4da6;color:white;}
+.nao{background:#ff8c42;color:white;}
+.talvez{background:#aaa;color:white;}
+.maps{background:#333;color:white;}
+.whats{background:#25D366;color:white;}
 
-.nao{
-background:linear-gradient(45deg,#ff8c42,#ffb066);
+.msg{
 color:white;
-}
-
-.talvez{
-background:linear-gradient(45deg,#999,#bbb);
-color:white;
-}
-
-.maps{
-background:linear-gradient(45deg,#333,#555);
-color:white;
-}
-
-.whats{
-background:linear-gradient(45deg,#25D366,#4be083);
-color:white;
-}
-
-.msg {
 margin-top:10px;
-font-size:14px;
-color:white;
 }
 
 /* CORAÇÕES */
@@ -159,13 +157,18 @@ to{transform:translateY(110vh);}
 
 <img src="imagem1.jpeg" class="capa" onclick="abrirConvite()">
 
+<p class="texto-convite">
+Você foi convidado para um momento especial 💍<br>
+<b>Clique para abrir o convite</b>
+</p>
+
 <div class="convite" id="convite">
 <img src="imagem2.png">
 </div>
 
 <div class="botoes" id="botoes">
 
-<p><b style="color:white;">Você aceita celebrar conosco?</b></p>
+<p style="color:white;"><b>Você aceita celebrar conosco?</b></p>
 
 <button class="sim" onclick="resposta('sim')">SIM 💖</button>
 <button class="nao" onclick="resposta('nao')">NÃO 🧡</button>
@@ -181,7 +184,7 @@ to{transform:translateY(110vh);}
 </div>
 
 <audio id="musica" loop>
-<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">
 </audio>
 
 <script>
@@ -190,14 +193,17 @@ let escolha = "";
 
 function abrirConvite(){
 document.querySelector(".capa").style.display="none";
+document.querySelector(".texto-convite").style.display="none";
+
 document.getElementById("convite").style.display="block";
 document.getElementById("botoes").style.display="block";
+
 document.getElementById("musica").play().catch(()=>{});
 coracoes();
 }
 
 function coracoes(){
-for(let i=0;i<40;i++){
+for(let i=0;i<35;i++){
 let h=document.createElement("div");
 h.className="heart";
 h.innerHTML="💖";
@@ -211,15 +217,9 @@ function resposta(op){
 let msg=document.getElementById("msg");
 escolha = op;
 
-if(op==="sim"){
-msg.innerHTML="💖 Perfeito! Estamos muito felizes!";
-}
-if(op==="nao"){
-msg.innerHTML="🧡 Vamos sentir sua falta!";
-}
-if(op==="talvez"){
-msg.innerHTML="🩶 Esperamos te ver lá!";
-}
+if(op==="sim") msg.innerHTML="💖 Perfeito! Estamos muito felizes!";
+if(op==="nao") msg.innerHTML="🧡 Vamos sentir sua falta!";
+if(op==="talvez") msg.innerHTML="🩶 Esperamos te ver lá!";
 }
 
 function abrirMapa(){
@@ -233,19 +233,13 @@ alert("Escolha uma opção primeiro 😊");
 return;
 }
 
-let texto = "";
+let texto="";
 
-if(escolha === "sim"){
-texto = "Oi! Confirmo presença no noivado de Wallace & Suanny 💍💖";
-}
-if(escolha === "nao"){
-texto = "Oi! Não poderei ir ao noivado de Wallace & Suanny 🧡";
-}
-if(escolha === "talvez"){
-texto = "Oi! Talvez eu vá ao noivado de Wallace & Suanny 🩶";
-}
+if(escolha==="sim") texto="Confirmo presença 💍💖";
+if(escolha==="nao") texto="Não poderei ir 🧡";
+if(escolha==="talvez") texto="Talvez eu vá 🩶";
 
-window.open("https://wa.me/?text=" + encodeURIComponent(texto));
+window.open("https://wa.me/?text="+encodeURIComponent(texto));
 }
 
 </script>
