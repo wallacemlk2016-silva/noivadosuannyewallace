@@ -9,25 +9,28 @@
 
 body {
 margin:0;
-height:100vh;
+min-height:100vh;
 display:flex;
 justify-content:center;
-align-items:center;
+align-items:flex-start; /* permite rolar */
 background:linear-gradient(135deg,#efeae4,#e4d7cf);
 font-family: 'Georgia', serif;
-overflow:hidden;
+overflow-y:auto; /* libera rolagem */
 }
 
 /* CONTAINER */
 .container {
 text-align:center;
 animation: fadeIn 1.5s ease;
+padding:20px 10px 40px;
+max-width:420px;
+width:100%;
 }
 
 /* IMAGEM PRINCIPAL */
 .capa {
 width:85%;
-max-width:360px;
+max-width:320px;
 border-radius:20px;
 cursor:pointer;
 transition:0.4s;
@@ -35,57 +38,19 @@ box-shadow:0 15px 40px rgba(0,0,0,0.3);
 animation: brilho 3s infinite alternate;
 }
 
-.capa:hover {
-transform:scale(1.05);
-}
-
-/* BRILHO SUAVE */
-@keyframes brilho {
-from { box-shadow:0 15px 30px rgba(0,0,0,0.3); }
-to { box-shadow:0 20px 50px rgba(255,182,193,0.4); }
-}
-
 /* TEXTO */
 .texto-convite {
-margin-top:20px;
-font-size:17px;
+margin-top:15px;
+font-size:16px;
 color:#4a2f28;
-line-height:1.5;
-padding:0 25px;
-animation: subirTexto 1.5s ease;
-}
-
-.texto-convite b {
-font-size:18px;
-color:#8b5e57;
-}
-
-/* MOBILE */
-@media (max-width:480px){
-.capa{
-width:92%;
-max-width:420px;
-}
-.texto-convite{
-font-size:18px;
-}
-}
-
-/* ANIMAÇÕES */
-@keyframes fadeIn {
-from{opacity:0;}
-to{opacity:1;}
-}
-
-@keyframes subirTexto {
-from{opacity:0; transform:translateY(20px);}
-to{opacity:1; transform:translateY(0);}
+padding:0 15px;
 }
 
 /* CONVITE */
 .convite {
 display:none;
-max-width:500px;
+max-width:320px; /* DIMINUI MAIS */
+margin:0 auto;
 animation: zoom 1.2s ease;
 }
 
@@ -94,37 +59,28 @@ width:100%;
 border-radius:12px;
 }
 
-@keyframes zoom {
-from{opacity:0; transform:scale(1.1);}
-to{opacity:1; transform:scale(1);}
-}
-
 /* BOTÕES */
 .botoes {
 display:none;
-margin-top:20px;
-padding:20px;
-border-radius:20px;
+margin-top:15px;
+padding:15px;
+border-radius:15px;
 background: rgba(0,0,0,0.4);
 backdrop-filter: blur(10px);
 }
 
 button {
 width:100%;
-margin:6px 0;
-padding:14px;
+margin:5px 0;
+padding:12px;
 border:none;
-border-radius:12px;
-font-size:15px;
+border-radius:10px;
+font-size:14px;
 font-weight:bold;
 cursor:pointer;
-transition:0.3s;
 }
 
-button:hover{
-transform:translateY(-2px);
-}
-
+/* CORES */
 .sim{background:#ff4da6;color:white;}
 .nao{background:#ff8c42;color:white;}
 .talvez{background:#aaa;color:white;}
@@ -133,7 +89,19 @@ transform:translateY(-2px);
 
 .msg{
 color:white;
-margin-top:10px;
+margin-top:8px;
+font-size:14px;
+}
+
+/* ANIMAÇÕES */
+@keyframes fadeIn {
+from{opacity:0;}
+to{opacity:1;}
+}
+
+@keyframes zoom {
+from{opacity:0; transform:scale(1.05);}
+to{opacity:1; transform:scale(1);}
 }
 
 /* CORAÇÕES */
@@ -183,10 +151,9 @@ Você foi convidado para um momento especial 💍<br>
 
 </div>
 
-<!-- ÁUDIO LOCAL -->
+<!-- ÁUDIO -->
 <audio id="musica" loop preload="auto" playsinline>
 <source src="musica1.mp3" type="audio/mpeg">
-Seu navegador não suporta áudio.
 </audio>
 
 <script>
@@ -202,15 +169,13 @@ document.getElementById("botoes").style.display="block";
 
 let audio = document.getElementById("musica");
 audio.volume = 0.8;
-audio.play().catch((e)=>{
-console.log("Autoplay bloqueado:", e);
-});
+audio.play().catch(()=>{});
 
 coracoes();
 }
 
 function coracoes(){
-for(let i=0;i<35;i++){
+for(let i=0;i<25;i++){ /* menos corações = mais leve */
 let h=document.createElement("div");
 h.className="heart";
 h.innerHTML="💖";
