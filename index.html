@@ -183,8 +183,10 @@ Você foi convidado para um momento especial 💍<br>
 
 </div>
 
-<audio id="musica" loop>
-<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">
+<!-- ÁUDIO LOCAL -->
+<audio id="musica" loop preload="auto" playsinline>
+<source src="musica1.mp3" type="audio/mpeg">
+Seu navegador não suporta áudio.
 </audio>
 
 <script>
@@ -198,7 +200,12 @@ document.querySelector(".texto-convite").style.display="none";
 document.getElementById("convite").style.display="block";
 document.getElementById("botoes").style.display="block";
 
-document.getElementById("musica").play().catch(()=>{});
+let audio = document.getElementById("musica");
+audio.volume = 0.8;
+audio.play().catch((e)=>{
+console.log("Autoplay bloqueado:", e);
+});
+
 coracoes();
 }
 
