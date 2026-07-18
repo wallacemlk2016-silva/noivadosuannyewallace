@@ -7,51 +7,97 @@
 
 <style>
 
-body {
+body{
 margin:0;
 min-height:100vh;
 display:flex;
 justify-content:center;
-align-items:flex-start; /* permite rolar */
+align-items:flex-start;
 background:linear-gradient(135deg,#efeae4,#e4d7cf);
-font-family: 'Georgia', serif;
-overflow-y:auto; /* libera rolagem */
+font-family:Georgia, serif;
+overflow-y:auto;
 }
 
-/* CONTAINER */
-.container {
+.container{
 text-align:center;
-animation: fadeIn 1.5s ease;
 padding:20px 10px 40px;
 max-width:420px;
 width:100%;
+animation:fadeIn 1.5s;
 }
 
-/* IMAGEM PRINCIPAL */
-.capa {
+/* ---------------- IMAGEM ---------------- */
+
+.capa-container{
+position:relative;
 width:85%;
 max-width:320px;
+margin:auto;
+}
+
+.capa{
+width:100%;
+display:block;
 border-radius:20px;
+box-shadow:0 15px 40px rgba(0,0,0,.35);
+user-select:none;
+}
+
+/* BOTÃO INVISÍVEL SOBRE A VARINHA */
+
+.botao-varinha{
+
+position:absolute;
+
+/* POSIÇÃO DA VARINHA */
+left:42%;
+top:44%;
+
+/* TAMANHO DA ÁREA */
+width:16%;
+height:23%;
+
 cursor:pointer;
-transition:0.4s;
-box-shadow:0 15px 40px rgba(0,0,0,0.3);
-animation: brilho 3s infinite alternate;
+border-radius:50%;
+background:transparent;
+
+animation:pulsar 1.4s infinite;
+
 }
 
-/* TEXTO */
-.texto-convite {
-margin-top:15px;
-font-size:16px;
+/* brilho */
+
+@keyframes pulsar{
+
+0%{
+box-shadow:0 0 0 0 rgba(255,255,255,.9);
+}
+
+70%{
+box-shadow:0 0 0 18px rgba(255,255,255,0);
+}
+
+100%{
+box-shadow:0 0 0 0 rgba(255,255,255,0);
+}
+
+}
+
+/* ---------------- TEXTO ---------------- */
+
+.texto-convite{
+margin-top:18px;
+font-size:17px;
 color:#4a2f28;
-padding:0 15px;
 }
 
-/* CONVITE */
-.convite {
+/* ---------------- CONVITE ---------------- */
+
+.convite{
 display:none;
-max-width:320px; /* DIMINUI MAIS */
-margin:0 auto;
-animation: zoom 1.2s ease;
+max-width:320px;
+margin:auto;
+animation:zoom 1s;
 }
 
 .convite img{
@@ -59,61 +105,75 @@ width:100%;
 border-radius:12px;
 }
 
-/* BOTÕES */
-.botoes {
+/* ---------------- BOTÕES ---------------- */
+
+.botoes{
 display:none;
 margin-top:15px;
 padding:15px;
 border-radius:15px;
-background: rgba(0,0,0,0.4);
-backdrop-filter: blur(10px);
+background:rgba(0,0,0,.45);
+backdrop-filter:blur(8px);
 }
 
-button {
+button{
 width:100%;
-margin:5px 0;
+margin:6px 0;
 padding:12px;
 border:none;
 border-radius:10px;
-font-size:14px;
+font-size:15px;
 font-weight:bold;
 cursor:pointer;
+transition:.3s;
 }
 
-/* CORES */
-.sim{background:#ff4da6;color:white;}
-.nao{background:#ff8c42;color:white;}
-.talvez{background:#aaa;color:white;}
-.maps{background:#333;color:white;}
-.whats{background:#25D366;color:white;}
+button:hover{
+transform:scale(1.03);
+}
+
+.sim{background:#ff4da6;color:#fff;}
+.nao{background:#ff8c42;color:#fff;}
+.talvez{background:#9d9d9d;color:#fff;}
+.maps{background:#333;color:#fff;}
+.whats{background:#25D366;color:#fff;}
 
 .msg{
+margin-top:10px;
 color:white;
-margin-top:8px;
-font-size:14px;
+font-size:15px;
 }
 
-/* ANIMAÇÕES */
-@keyframes fadeIn {
+/* ---------------- ANIMAÇÕES ---------------- */
+
+@keyframes fadeIn{
 from{opacity:0;}
 to{opacity:1;}
 }
 
-@keyframes zoom {
-from{opacity:0; transform:scale(1.05);}
-to{opacity:1; transform:scale(1);}
+@keyframes zoom{
+from{
+opacity:0;
+transform:scale(1.05);
+}
+to{
+opacity:1;
+transform:scale(1);
+}
 }
 
-/* CORAÇÕES */
-.heart {
+.heart{
 position:fixed;
-top:-10px;
-font-size:20px;
+top:-20px;
+font-size:22px;
 animation:fall linear forwards;
+pointer-events:none;
 }
 
-@keyframes fall {
-to{transform:translateY(110vh);}
+@keyframes fall{
+to{
+transform:translateY(110vh);
+}
 }
 
 </style>
@@ -123,27 +183,49 @@ to{transform:translateY(110vh);}
 
 <div class="container">
 
-<img src="imagem1.jpeg" class="capa" onclick="abrirConvite()">
+<div class="capa-container">
+
+<img src="imagem1.jpeg" class="capa">
+
+<div class="botao-varinha" onclick="abrirConvite()" title="Abrir Convite"></div>
+
+</div>
 
 <p class="texto-convite">
-Você foi convidado para um momento especial 💍<br>
-<b>Clique para abrir o convite</b>
+Você foi convidado para um momento especial 💍
+<br>
+<b>Clique na varinha mágica para abrir o convite ✨</b>
 </p>
 
 <div class="convite" id="convite">
+
 <img src="imagem2.png">
+
 </div>
 
 <div class="botoes" id="botoes">
 
-<p style="color:white;"><b>Você aceita celebrar conosco?</b></p>
+<p style="color:white"><b>Você aceita celebrar conosco?</b></p>
 
-<button class="sim" onclick="resposta('sim')">SIM 💖</button>
-<button class="nao" onclick="resposta('nao')">NÃO 🧡</button>
-<button class="talvez" onclick="resposta('talvez')">TALVEZ 🩶</button>
+<button class="sim" onclick="resposta('sim')">
+SIM 💖
+</button>
 
-<button class="maps" onclick="abrirMapa()">📍 Ver Local</button>
-<button class="whats" onclick="whats()">💬 Confirmar no WhatsApp</button>
+<button class="nao" onclick="resposta('nao')">
+NÃO 🧡
+</button>
+
+<button class="talvez" onclick="resposta('talvez')">
+TALVEZ 🩶
+</button>
+
+<button class="maps" onclick="abrirMapa()">
+📍 Ver Local
+</button>
+
+<button class="whats" onclick="whats()">
+💬 Confirmar no WhatsApp
+</button>
 
 <p class="msg" id="msg"></p>
 
@@ -151,67 +233,100 @@ Você foi convidado para um momento especial 💍<br>
 
 </div>
 
-<!-- ÁUDIO -->
-<audio id="musica" loop preload="auto" playsinline>
+<audio id="musica" loop preload="auto">
 <source src="musica1.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 
-let escolha = "";
+let escolha="";
 
 function abrirConvite(){
-document.querySelector(".capa").style.display="none";
+
+document.querySelector(".capa-container").style.display="none";
+
 document.querySelector(".texto-convite").style.display="none";
 
 document.getElementById("convite").style.display="block";
+
 document.getElementById("botoes").style.display="block";
 
-let audio = document.getElementById("musica");
-audio.volume = 0.8;
+let audio=document.getElementById("musica");
+
+audio.volume=0.8;
+
 audio.play().catch(()=>{});
 
 coracoes();
+
 }
 
 function coracoes(){
-for(let i=0;i<25;i++){ /* menos corações = mais leve */
+
+for(let i=0;i<25;i++){
+
 let h=document.createElement("div");
+
 h.className="heart";
+
 h.innerHTML="💖";
+
 h.style.left=Math.random()*100+"vw";
+
 h.style.animationDuration=(2+Math.random()*3)+"s";
+
 document.body.appendChild(h);
+
 }
+
 }
 
 function resposta(op){
-let msg=document.getElementById("msg");
-escolha = op;
 
-if(op==="sim") msg.innerHTML="💖 Perfeito! Estamos muito felizes!";
-if(op==="nao") msg.innerHTML="🧡 Vamos sentir sua falta!";
-if(op==="talvez") msg.innerHTML="🩶 Esperamos te ver lá!";
+escolha=op;
+
+const msg=document.getElementById("msg");
+
+if(op==="sim")
+msg.innerHTML="💖 Perfeito! Estamos muito felizes!";
+
+if(op==="nao")
+msg.innerHTML="🧡 Vamos sentir sua falta!";
+
+if(op==="talvez")
+msg.innerHTML="🩶 Esperamos te ver lá!";
+
 }
 
 function abrirMapa(){
+
 window.open("https://www.google.com/maps/search/?api=1&query=Restaurante+Skillus+Classic+Recife");
+
 }
 
 function whats(){
 
-if(escolha === ""){
+if(escolha===""){
+
 alert("Escolha uma opção primeiro 😊");
+
 return;
+
 }
 
 let texto="";
 
-if(escolha==="sim") texto="Confirmo presença 💍💖";
-if(escolha==="nao") texto="Não poderei ir 🧡";
-if(escolha==="talvez") texto="Talvez eu vá 🩶";
+if(escolha==="sim")
+texto="Confirmo presença 💍💖";
+
+if(escolha==="nao")
+texto="Não poderei ir 🧡";
+
+if(escolha==="talvez")
+texto="Talvez eu vá 🩶";
 
 window.open("https://wa.me/?text="+encodeURIComponent(texto));
+
 }
 
 </script>
